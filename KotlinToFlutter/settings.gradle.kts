@@ -25,4 +25,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "KotlinToFlutter"
 include(":app")
- 
+include(":wrapper")

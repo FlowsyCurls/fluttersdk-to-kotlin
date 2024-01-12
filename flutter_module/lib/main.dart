@@ -1,20 +1,12 @@
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'methods.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('sum_channel');
+  // Asegurar  que el método se ejecute después de que se haya inicializado el binding.
+  WidgetsFlutterBinding.ensureInitialized();
 
-  channel.setMethodCallHandler((MethodCall call) async {
-    if (call.method == 'computeSum') {
-      int a = call.arguments['a'];
-      int b = call.arguments['b'];
-
-      int result = computeSum(a, b);
-      return result;
-    }
-    return null;
-  });
-}
-
-int computeSum(int a, int b) {
-  return a + b;
+  // Configurar el canal de método.
+  FlutterMethodChannel.setUpMethodChannel();
+  
+  // Aquí normalmente iría la ejecución de la app Flutter, pero como no se necesita interfaz
 }

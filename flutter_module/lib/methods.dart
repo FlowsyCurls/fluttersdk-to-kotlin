@@ -1,16 +1,26 @@
 import 'package:flutter/services.dart';
 
-class MethodChannelHelper {
-  static const platform = const MethodChannel('com.example.sum_channel');
+class FlutterMethodChannel {
+  static const MethodChannel _channel = MethodChannel('channel');
 
-  static Future<int> calculateSum(int a, int b) async {
-    try {
-      final result =
-          await platform.invokeMethod('calculateSum', {'a': a, 'b': b});
-      return result;
-    } on PlatformException catch (e) {
-      print("Error: ${e.message}");
-      return 0; // or some default value
+  static void setUpMethodChannel() {
+    _channel.setMethodCallHandler(_handleMethodCall);
+    print('El canal de método se ha configurado correctamente.');
+  }
+
+  static Future<dynamic> _handleMethodCall(MethodCall call) async {
+    switch (call.method) {
+      case 'sum':
+        final int a = call.arguments['a'];
+        final int b = call.arguments['b'];
+        //call.
+        return a + b; // Devuelve el resultado de la suma.
+      default:
+        throw PlatformException(
+          code: 'Unimplemented',
+          details:
+              'The method ${call.method} is not implemented on the Flutter side.',
+        );
     }
   }
 }
