@@ -1,4 +1,4 @@
-package com.example.wrapper
+package com.example.kotlintoflutter
 
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel

@@ -1,4 +1,4 @@
-package com.example.wrapper
+package com.example.kotlintoflutter
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

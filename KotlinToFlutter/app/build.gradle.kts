@@ -44,10 +44,11 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-//    debugImplementation ("com.example.flutter_module:flutter_debug:1.0")
-//    //profileImplementation ("com.example.flutter_module:flutter_profile:1.0")
-//    releaseImplementation ("com.example.flutter_module:flutter_release:1.0")
-    //implementation(project(":wrapper"))
-    implementation(files("../library/wrapper.aar"))
+    debugImplementation ("com.example.flutter_module:flutter_debug:1.0")
+    //profileImplementation ("com.example.flutter_module:flutter_profile:1.0")
+    releaseImplementation ("com.example.flutter_module:flutter_release:1.0")
+
+
+    //implementation(files("../library/wrapper.aar"))
 
 }

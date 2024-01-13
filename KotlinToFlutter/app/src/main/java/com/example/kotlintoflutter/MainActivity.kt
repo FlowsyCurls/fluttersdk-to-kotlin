@@ -6,7 +6,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.wrapper.Calculator
+import androidx.lifecycle.lifecycleScope
+import com.example.kotlintoflutter.Calculator
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.dart.DartExecutor
+import io.flutter.plugins.GeneratedPluginRegistrant
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() , View.OnClickListener {
 
@@ -23,11 +28,10 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         // Set FlutterEngine.
-        //val flutterEngine = configureFlutterEngine()
+        val flutterEngine = configureFlutterEngine()
 
         // Configures the native method channel.
-        //NativeMethodChannel.configureChannel(flutterEngine)
-
+        NativeMethodChannel.configureChannel(flutterEngine)
 
         // Kotlin testing interface
         btnAdd = findViewById(R.id.btn_add)
@@ -38,30 +42,32 @@ class MainActivity : AppCompatActivity() , View.OnClickListener {
         btnAdd.setOnClickListener(this)
     }
 
-//    private fun configureFlutterEngine(): FlutterEngine {
-//        // Create a new FlutterEngine instance.
-//        val flutterEngine = FlutterEngine(this)
-//
-//        // Start the Dart execution in the FlutterEngine.
-//        flutterEngine.dartExecutor.executeDartEntrypoint(
-//            DartExecutor.DartEntrypoint.createDefault()
-//        )
-//
-//        // Register the plugins generated with the FlutterEngine.
-//        GeneratedPluginRegistrant.registerWith(flutterEngine)
-//
-//        return flutterEngine
-//    }
+    private fun configureFlutterEngine(): FlutterEngine {
+        // Create a new FlutterEngine instance.
+        val flutterEngine = FlutterEngine(this)
+
+        // Start the Dart execution in the FlutterEngine.
+        flutterEngine.dartExecutor.executeDartEntrypoint(
+            DartExecutor.DartEntrypoint.createDefault()
+        )
+
+        // Register the plugins generated with the FlutterEngine.
+        GeneratedPluginRegistrant.registerWith(flutterEngine)
+
+        return flutterEngine
+    }
 
 
     override fun onClick(v: View?) {
         val a = etA.text.toString().toInt()
         val b = etB.text.toString().toInt()
-        when (v?.id) {
+        when(v?.id){
             R.id.btn_add -> {
-                // Call the sum method of Calculator
-                val result = calculator.sum(a, b)
-                resultTv.text = result.toString()
+                lifecycleScope.launch {
+                    // Call the sum method of NativeMethodChannel and get the result from Flutter
+                    val result = NativeMethodChannel.sum(a, b)
+                    resultTv.text = result.toString()
+                }
             }
         }
     }
